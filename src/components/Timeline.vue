@@ -1,7 +1,7 @@
 <template>
   <div class='timeline'>
     <div class='timeline__day' v-for='d in data' :key='d.day'>
-      <h1>{{ d.day }}</h1>
+      <h2>day {{ d.day }}</h2>
       <div class='timeline__notes'>
         <span class='tag' v-for='tag in d.overnightNotes'>{{ tag }}</span>
       </div>
@@ -12,7 +12,7 @@
         "timeline__block": true,
         "timeline__block--active": l.events.length
         }' v-for='l in d.lines'>
-        <p v-if='l.events.length'>{{ formatDate(l.time) }}</p>
+        <p class='timeline__time' v-if='l.events.length'>{{ formatDate(l.time) }}</p>
         <div v-bind:class='["timeline__event timeline__event--" + e]' v-for='e in l.events'>{{ e }}</div>
       </div>
     </div>
@@ -45,6 +45,7 @@ export default {
 .timeline {
   display: flex;
   align-items: flex-start;
+  margin: 20px auto;
 }
 .timeline__day {
   width: 100%;
@@ -54,12 +55,15 @@ export default {
   height: 100px;
   margin: 10px;
   border: 1px dashed rgba(0, 0, 255, 0.1);
+  border-radius: 5px;
 
   > p {
     margin: 0;
   }
 }
 .timeline__block--active {
+  border-color: transparent;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
 }
 .timeline__notes {
   height: 50px;
@@ -67,7 +71,8 @@ export default {
 .timeline__event {
 
 }
-.timeline__event--poo {
+.timeline__event--poo,
+.timeline__event--poo-outside {
   background: brown;
   color: white;
 }
@@ -79,9 +84,15 @@ export default {
   background: blue;
   color: white;
 }
+.timeline__time {
+  background: white;
+  padding: 5px;
+  border-radius: 5px 5px 0 0;
+}
 .tag {
-  padding: 3px;
+  padding: 3px 5px;
   margin: 5px;
   background: white;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
 }
 </style>
