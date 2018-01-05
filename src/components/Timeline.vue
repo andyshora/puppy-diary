@@ -35,7 +35,7 @@ export default {
       'fetchData'
     ]),
     formatDate: dateStr => {
-      return moment(dateStr).format('hh:mm');
+      return moment(dateStr).format('HH:mm');
     }
   }
 }
@@ -52,7 +52,7 @@ export default {
   margin: 0 10px;
 }
 .timeline__block {
-  height: 100px;
+  height: 80px;
   margin: 10px;
   border: 1px dashed rgba(0, 0, 255, 0.1);
   border-radius: 5px;
@@ -63,13 +63,14 @@ export default {
 }
 .timeline__block--active {
   border-color: transparent;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
 }
 .timeline__notes {
   height: 50px;
 }
 .timeline__event {
-
+  display: inline-block;
+  padding: 5px 7px;
 }
 .timeline__event--poo,
 .timeline__event--poo-outside {
