@@ -21,7 +21,7 @@
         <span>{{ formatDate(tb) }}</span>
       </div>
     </section>
-    <div class='timeline__now-line' v-bind:style='{ top: `${timeNowTopOffset}px` }'></div>
+    <div id='now' class='timeline__now-line' v-bind:style='{ top: `${timeNowTopOffset}px` }'></div>
   </div>
 </template>
 

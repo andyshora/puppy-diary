@@ -1,7 +1,7 @@
 <template>
   <div id='app'>
     <h1>Ted's Poop Diary</h1>
-    <a href="https://docs.google.com/spreadsheets/d/1o7AiX8nPx9RT5ihuDEZSAdwKHaiABS0ivui3mjd2ng0/edit#gid=0" target="_blank">Edit the sheet</a>
+    <a href="https://docs.google.com/spreadsheets/d/1o7AiX8nPx9RT5ihuDEZSAdwKHaiABS0ivui3mjd2ng0/edit#gid=0" target="_blank">Edit the sheet</a> <a href='#now'>Jump to now</a>
     <router-view/>
   </div>
 </template>
