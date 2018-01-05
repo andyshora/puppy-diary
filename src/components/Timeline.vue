@@ -1,6 +1,6 @@
 <template>
   <div class='timeline'>
-    <div class='timeline__day' v-for='d in data' :key='d.day'>
+    <section class='timeline__day' v-for='d in data' :key='d.day'>
       <h2>day {{ d.day }}</h2>
       <div class='timeline__notes'>
         <span class='tag' v-for='tag in d.overnightNotes'>{{ tag }}</span>
@@ -15,7 +15,13 @@
         <p class='timeline__time' v-if='l.events.length'>{{ formatDate(l.time) }}</p>
         <div v-bind:class='["timeline__event timeline__event--" + e]' v-for='e in l.events'>{{ e }}</div>
       </div>
-    </div>
+    </section>
+    <section class='timeline__axis'>
+      <div class='timeline__axis-block' v-for='tb in timeBlocks'>
+        <span>{{ formatDate(tb) }}</span>
+      </div>
+    </section>
+    <div class='timeline__now-line' v-bind:style='{ top: `${timeNowTopOffset}px` }'></div>
   </div>
 </template>
 
@@ -27,9 +33,14 @@ export default {
   components: {},
   computed: {
     ...mapGetters([
-      'data'
+      'data',
+      'timeBlocks'
     ])
   },
+  data: () => ({
+    timeNow: moment().format('HH:mm'),
+    timeNowTopOffset: 173 + (360 * moment().diff(moment().hours(5), 'hours', true)),
+  }),
   methods: {
     ...mapActions([
       'fetchData'
@@ -46,10 +57,38 @@ export default {
   display: flex;
   align-items: flex-start;
   margin: 20px auto;
+  position: relative;
+}
+.timeline__now-line {
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  border-top: 5px dashed cornflowerblue;
+
+  &::before {
+    position: absolute;
+    font-size: 12px;
+    right: 80px;
+    top: -25px;
+    color: black;
+    content: 'now';
+  }
 }
 .timeline__day {
   width: 100%;
   margin: 0 10px;
+}
+.timeline__axis {
+  margin: 173px 0 0 0;
+}
+.timeline__axis-block {
+  display: flex;
+  align-items: center;
+  height: 80px;
+  margin: 10px;
+  padding: 10px 20px 10px 10px;
+  background: white;
+  border: 1px solid transparent;
 }
 .timeline__block {
   height: 80px;

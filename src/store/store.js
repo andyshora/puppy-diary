@@ -8,10 +8,15 @@ Vue.use(Vuex);
 export const store = new Vuex.Store({
   strict: true,
   state: {
-    data: []
+    data: null
   },
   getters: {
-    data: state => state.data
+    data: state => state.data,
+    timeBlocks: state => {
+      return state.data && state.data.length
+        ? state.data[0].lines.map(l => l.time)
+        : null;
+    }
   },
   mutations: {
     SET_DATA: (state, data) => {
