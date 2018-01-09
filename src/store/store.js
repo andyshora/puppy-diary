@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import config from 'config';
 import moment from 'moment';
+import _ from 'lodash';
 
 Vue.use(Vuex);
 
@@ -12,6 +13,7 @@ export const store = new Vuex.Store({
   },
   getters: {
     data: state => state.data,
+    last: state => n => _.takeRight(state.data, n),
     timeBlocks: state => {
       return state.data && state.data.length
         ? state.data[0].lines.map(l => l.time)

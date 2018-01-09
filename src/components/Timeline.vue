@@ -1,7 +1,7 @@
 <template>
   <div class='timeline'>
-    <section class='timeline__day' v-for='d in data' :key='d.day'>
-      <h2>day {{ d.day }}</h2>
+    <section class='timeline__day' v-for='d in last(5)' :key='d.day'>
+      <h2>{{ formatDate(d.date) }}</h2>
       <div class='timeline__notes'>
         <span class='tag' v-for='tag in d.overnightNotes'>{{ tag }}</span>
       </div>
@@ -12,13 +12,13 @@
         "timeline__block": true,
         "timeline__block--active": l.events.length
         }' v-for='l in d.lines'>
-        <p class='timeline__time' v-if='l.events.length'>{{ formatDate(l.time) }}</p>
+        <p class='timeline__time' v-if='l.events.length'>{{ formatTime(l.time) }}</p>
         <div v-bind:class='["timeline__event timeline__event--" + e]' v-for='e in l.events'>{{ e }}</div>
       </div>
     </section>
     <section class='timeline__axis'>
       <div class='timeline__axis-block' v-for='tb in timeBlocks'>
-        <span>{{ formatDate(tb) }}</span>
+        <span>{{ formatTime(tb) }}</span>
       </div>
     </section>
     <div id='now' class='timeline__now-line' v-bind:style='{ top: `${timeNowTopOffset}px` }'></div>
@@ -34,18 +34,22 @@ export default {
   computed: {
     ...mapGetters([
       'data',
+      'last',
       'timeBlocks'
     ])
   },
   data: () => ({
     timeNow: moment().format('HH:mm'),
-    timeNowTopOffset: 173 + (360 * moment().diff(moment().hours(5), 'hours', true)),
+    timeNowTopOffset: 183 + (360 * moment().diff(moment().hours(5).minutes(0), 'hours', true))
   }),
   methods: {
     ...mapActions([
       'fetchData'
     ]),
     formatDate: dateStr => {
+      return moment(dateStr).format('ddd D MMM');
+    },
+    formatTime: dateStr => {
       return moment(dateStr).format('HH:mm');
     }
   }
